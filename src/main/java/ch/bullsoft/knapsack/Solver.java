@@ -1,17 +1,15 @@
+package ch.bullsoft.knapsack;
+
 import java.io.*;
 import java.util.List;
 import java.util.ArrayList;
 
-/**
- * The class <code>Solver</code> is an implementation of a greedy algorithm to solve the knapsack problem.
- *
- */
 public class Solver {
     
     /**
      * The main class
      */
-    public static void main(String[] args) {
+    public static final void main(final String[] args) {
         try {
             solve(args);
         } catch (IOException e) {
@@ -76,6 +74,5 @@ public class Solver {
         for (int i=0; i < items; i++){
             System.out.print((solution.isTaken(i) ? "1" : "0") + " ");
         }
-        System.out.println("");        
     }
 }

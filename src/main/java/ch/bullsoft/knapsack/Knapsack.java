@@ -1,3 +1,7 @@
+package ch.bullsoft.knapsack;
+
+import java.util.Arrays;
+
 public final class Knapsack {
 
     private final int[] weights;
@@ -32,6 +36,10 @@ public final class Knapsack {
     }
 
     public String toString() {
-        return "Knapsack with capacity: " + capacity;
+        return "weights = " + "[" + asString(weights) + ", values = " + asString(values);
+    }
+
+    private String asString(int[] arr) {
+        return Arrays.toString(arr);
     }
 }
