@@ -1,4 +1,8 @@
-package ch.bullsoft.knapsack;
+package ch.bullsoft.knapsack.greedy;
+
+import ch.bullsoft.knapsack.Knapsack;
+import ch.bullsoft.knapsack.KnapsackSolution;
+import ch.bullsoft.knapsack.KnapsackStrategy;
 
 import java.util.Comparator;
 import java.util.List;

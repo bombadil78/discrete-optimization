@@ -1,5 +1,8 @@
 package ch.bullsoft.knapsack;
 
+import ch.bullsoft.knapsack.dp.DynamicProgramming;
+import ch.bullsoft.knapsack.greedy.Greedy;
+
 import java.io.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -65,7 +68,8 @@ public class Solver {
 
         // STRATEGY BEGIN
         Knapsack knapsack = new Knapsack(weights, values, capacity);
-        KnapsackStrategy strategy = new Greedy();
+        // KnapsackStrategy strategy = new Greedy();
+        KnapsackStrategy strategy = new DynamicProgramming();
         KnapsackSolution solution = strategy.solve(knapsack);
         // STRATEGY END
 
