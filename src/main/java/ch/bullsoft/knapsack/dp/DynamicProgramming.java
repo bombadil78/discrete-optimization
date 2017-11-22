@@ -47,7 +47,7 @@ public class DynamicProgramming implements KnapsackStrategy {
             }
         }
 
-        KnapsackSolution solution = new KnapsackSolution(taken, optimum);
+        KnapsackSolution solution = new KnapsackSolution(taken, optimum, false);
         return solution;
     }
 

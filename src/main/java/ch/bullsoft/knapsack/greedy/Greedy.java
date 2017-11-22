@@ -28,7 +28,7 @@ public class Greedy implements KnapsackStrategy {
             }
         }
 
-        return new KnapsackSolution(taken, value);
+        return new KnapsackSolution(taken, value, true);
     }
 
     private List<Entry> orderedByDensity(Knapsack knapsack) {

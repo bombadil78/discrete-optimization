@@ -1,7 +1,8 @@
-package ch.bullsoft.knapsack;
+package ch.bullsoft.knapsack.dp;
 
-import ch.bullsoft.knapsack.dp.DynamicProgramming;
-import org.junit.Ignore;
+import ch.bullsoft.knapsack.Knapsack;
+import ch.bullsoft.knapsack.KnapsackSolution;
+import ch.bullsoft.knapsack.KnapsackStrategy;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -39,10 +40,5 @@ public class DynamicProgrammingTests {
         assertTrue(solution.isTaken(1));
         assertTrue(solution.isTaken(1));
         assertTrue(solution.isTaken(0));
-    }
-
-    @Test
-    public void solve_ShouldSolveAdvancedExample() {
-
     }
 }

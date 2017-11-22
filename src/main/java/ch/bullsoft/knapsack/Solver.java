@@ -1,5 +1,6 @@
 package ch.bullsoft.knapsack;
 
+import ch.bullsoft.knapsack.bb.BranchAndBound;
 import ch.bullsoft.knapsack.dp.DynamicProgramming;
 import ch.bullsoft.knapsack.greedy.Greedy;
 
@@ -49,7 +50,6 @@ public class Solver {
             input.close();
         }
         
-        
         // parse the data in the file
         String[] firstLine = lines.get(0).split("\\s+");
         int items = Integer.parseInt(firstLine[0]);
@@ -68,15 +68,68 @@ public class Solver {
 
         // STRATEGY BEGIN
         Knapsack knapsack = new Knapsack(weights, values, capacity);
-        // KnapsackStrategy strategy = new Greedy();
-        KnapsackStrategy strategy = new DynamicProgramming();
-        KnapsackSolution solution = strategy.solve(knapsack);
+        KnapsackSolution solution = null;
+
+        /*
+        if (knapsack.getNumberOfElements() == 30) {
+            solution = trySolvingWithDynamicProgramming(fileName, knapsack);
+        } else {
+            solution = trySolvingWithGreedy(solution, knapsack);
+        }
+        */
+        solution = trySolvingWithBranchAndBound(solution, knapsack);
+        if (solution == null) throw new RuntimeException("No solution found!");
         // STRATEGY END
 
         // prepare the solution in the specified output format
-        System.out.println(solution.getValue() +" 0");
+        System.out.println(solution.getValue() + (solution.isApproximation() ? " 1" : " 0"));
         for (int i=0; i < items; i++){
             System.out.print((solution.isTaken(i) ? "1" : "0") + " ");
         }
+    }
+
+    private static KnapsackSolution trySolvingWithDynamicProgramming(String fileName, Knapsack knapsack) {
+        // System.out.println("---------------------------");
+        // System.out.println("Using dynamic programming");
+        // System.out.println("---------------------------");
+        try {
+            KnapsackStrategy strategy = new DynamicProgramming();
+            return strategy.solve(knapsack);
+        } catch (Exception ex) {
+            // System.out.println("Unable to solve with dynamic programming");
+            // System.out.println(ex);
+        }
+        return null;
+    }
+
+    private static KnapsackSolution trySolvingWithBranchAndBound(KnapsackSolution solution, Knapsack knapsack) {
+        if (solution != null) return solution;
+        // System.out.println("---------------------------");
+        // System.out.println("Using branch & bound");
+        // System.out.println("---------------------------");
+        int initialEstimate = BranchAndBound.LINEAR_ESTIMATE.getEstimate(knapsack);
+        // System.out.println("Capacity: " + knapsack.getCapacity());
+        // System.out.println("Initial estimate: " + initialEstimate);
+        for (int i = 0; i < 8; i++) {
+            try {
+                int estimate = (i == 0 ? initialEstimate : initialEstimate + (int) Math.pow(10, i - 1));
+                // System.out.println("Checking with estimate: " + estimate);
+                KnapsackStrategy strategy = new BranchAndBound(estimate);
+                solution = strategy.solve(knapsack);
+                return solution;
+            } catch (Exception ex) {
+                // System.out.println("Error on solving knapsack, increasing estimate");
+            }
+        }
+        return null;
+    }
+
+    private static KnapsackSolution trySolvingWithGreedy(KnapsackSolution solution, Knapsack knapsack) {
+        if (solution != null) return solution;
+        // System.out.println("---------------------------");
+        // System.out.println("Using greedy algorithm");
+        // System.out.println("---------------------------");
+        KnapsackStrategy strategy = new Greedy();
+        return strategy.solve(knapsack);
     }
 }
