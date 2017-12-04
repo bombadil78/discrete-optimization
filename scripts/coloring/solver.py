@@ -10,7 +10,7 @@ def solve_it(input_data):
     tmp_file.write(input_data)
     tmp_file.close()
 
-    process = Popen(['java', '-cp', '/home/christoph/code/discrete-optimization/target/do-0.1.jar', 'ch.bullsoft.coloring.Coloring', '-file=' + tmp_file_name], stdout=PIPE)
+    process = Popen(['java', '-Xmx6g', '-cp', '/home/christoph/code/discrete-optimization/target/do-0.1-jar-with-dependencies.jar', 'ch.bullsoft.coloring.Solver', '-file=' + tmp_file_name], stdout=PIPE)
     (stdout, stderr) = process.communicate()
 
     os.remove(tmp_file_name)
