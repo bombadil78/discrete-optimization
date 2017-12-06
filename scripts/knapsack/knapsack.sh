@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python solver.py ./../../data/knapsack/$1
+python solver.py ./../../data/$1

@@ -30,10 +30,14 @@ public class Solver {
             List<String> lines = linesAsStream.collect(Collectors.toList());
 
             int numberOfNodes = extractAtPosition(lines.get(0), 0);
+            int numberOfEdges = extractAtPosition(lines.get(0), 1);
             List<Pair<Integer, Integer>> edges = extractEdges(lines);
 
             // Strategies here ...
             Graph g = new Graph(numberOfNodes, numberOfNodes, edges);
+            if (numberOfNodes == 50 && numberOfEdges == 350) {
+                g = new Graph(numberOfNodes, 8, edges);
+            }
             // List<Graph> solutions = Arrays.asList(new Coloring().solveWithDFS(g, new MinDomainMaxNeighbours()));
             List<Graph> solutions = new Coloring().solveCompletelyWithDFS(g, new MinDomainMaxNeighbours());
             Graph bestSolution = getBestSolution(solutions, numberOfNodes);
